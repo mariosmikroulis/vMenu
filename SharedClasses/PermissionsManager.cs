@@ -132,7 +132,6 @@ namespace vMenuShared
             VSMilitary,
             VSCommercial,
             VSTrains,
-            VSOpenWheel,
             #endregion
 
             // Saved Vehicles

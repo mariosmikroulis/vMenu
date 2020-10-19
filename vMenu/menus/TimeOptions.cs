@@ -100,8 +100,8 @@ namespace vMenuClient
                 // If it's the freeze time button.
                 if (item == freezeTimeToggle)
                 {
-                    Subtitle.Info($"Time will now {(EventManager.IsServerTimeFrozen ? "~y~continue" : "~o~freeze")}~s~.", prefix: "Info:");
-                    UpdateServerTime(EventManager.GetServerHours, EventManager.GetServerMinutes, !EventManager.IsServerTimeFrozen);
+                    Subtitle.Info($"Time will now {(EventManager.freezeTime ? "~y~continue" : "~o~freeze")}~s~.", prefix: "Info:");
+                    UpdateServerTime(EventManager.currentHours, EventManager.currentMinutes, !EventManager.freezeTime);
                 }
                 else
                 {
@@ -121,15 +121,15 @@ namespace vMenuClient
                     var newMinute = 0;
                     Subtitle.Info($"Time set to ~y~{(newHour < 10 ? $"0{newHour}" : newHour.ToString())}~s~:~y~" +
                         $"{(newMinute < 10 ? $"0{newMinute}" : newMinute.ToString())}~s~.", prefix: "Info:");
-                    UpdateServerTime(newHour, newMinute, EventManager.IsServerTimeFrozen);
+                    UpdateServerTime(newHour, newMinute, EventManager.freezeTime);
                 }
 
             };
 
             menu.OnListItemSelect += (sender, item, listIndex, itemIndex) =>
             {
-                int newHour = EventManager.GetServerHours;
-                int newMinute = EventManager.GetServerMinutes;
+                int newHour = EventManager.currentHours;
+                int newMinute = EventManager.currentMinutes;
                 if (item == manualHour)
                 {
                     newHour = item.ListIndex;
@@ -141,7 +141,7 @@ namespace vMenuClient
 
                 Subtitle.Info($"Time set to ~y~{(newHour < 10 ? $"0{newHour}" : newHour.ToString())}~s~:~y~" +
                         $"{(newMinute < 10 ? $"0{newMinute}" : newMinute.ToString())}~s~.", prefix: "Info:");
-                UpdateServerTime(newHour, newMinute, EventManager.IsServerTimeFrozen);
+                UpdateServerTime(newHour, newMinute, EventManager.freezeTime);
             };
         }
 
